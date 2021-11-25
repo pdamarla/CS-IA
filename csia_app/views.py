@@ -35,3 +35,30 @@ def userloginview(request):
 
 def homepageview(request):
     return render(request, "homepage.html")
+
+def userauthenticate(request):
+    username = request.POST['username']
+    password = request.POST['password']
+
+    user = authenticate(username=username, password=password)
+
+    # user exists
+    if user is not None:
+        login(request, user)
+        return redirect('userhomepage')
+    # user doesnt exists
+    if user is None:
+        messages.add_message(request, messages.ERROR, "Invalid Username/Password")
+        return redirect('userlogin')
+
+
+def userhomepageview(request):
+    return render(request, "userhomepage.html")
+
+
+def userlogout(request):
+    logout(request)
+    return redirect('userlogin')
+
+
+
