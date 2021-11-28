@@ -14,16 +14,55 @@
               <th scope="col">Task Name</th>
               <th scope="col">Status</th>
               <th scope="col">Deadline</th>
+              <th scope="col">Grade</th>
             </tr>
           </thead>
           <tbody>
               {% for task in tasks %}
                <tr>
-                  <th scope="row">{{task.name}}</th>
+                  <th scope="row">
+                      <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#taskModal{{task.id}}">
+      {{task.name}}
+    </button></th>
+
                   <td>{{task.status}}</td>
                   <td>{{task.deadline}}</td>
+                  <td>{{task.grade}}</td>
+                  <td> <a class = "btn btn-success" href="/media/{{task.file}}" target="_blank">
+                      View File
+                  </a>
+                  </td>
+
                 </tr>
-                {% endfor %}
+
+
+
+        <!-- Modal -->
+        <div class="modal fade" id="taskModal{{task.id}}" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+          <div class="modal-dialog">
+            <div class="modal-content">
+              <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLabel">{{task.name}}</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+              </div>
+              <div class="modal-body">
+                 {{task.description}}
+                  <hr>
+                    <form method = "post" action="/savetasks/{{task.id}}" enctype="multipart/form-data">
+                        {% csrf_token %}
+                      <div class="mb-3">
+                        <label for="task-file" class="form-label">Choose File</label>
+                        <input type="file" class="form-control" id="task-file" name = "task-file" aria-describedby="emailHelp">
+                        <div id="emailHelp" class="form-text">Your deadline is at {{task.deadline}}</div>
+                      </div>
+                      <button type="submit" class="btn btn-primary">Submit</button>
+                    </form>
+
+              </div>
+            </div>
+          </div>
+        </div>
+              {% endfor %}
 
 
           </tbody>

@@ -82,3 +82,15 @@ def usertasksview(request, subject_id):
         "subject": subject, "tasks": tasks
     }
     return render(request, "usertasks.html", context)
+
+
+def savetask(request, task_id):
+    task = get_object_or_404(Task, pk = task_id)
+    file = request.FILES["task-file"]
+    task.file = file
+    task_status = TaskStatus(status = "Submitted")
+    task_status.save()
+    task.status = task_status
+    task.save()
+    return redirect('userhomepage')
+
