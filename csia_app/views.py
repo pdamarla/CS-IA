@@ -1,7 +1,8 @@
 from django.contrib.auth.decorators import login_required
-from django.shortcuts import render, redirect
+from django.shortcuts import render, redirect, get_object_or_404
 from django.contrib.auth import authenticate,login,logout
 from django.contrib import messages
+from .models import *
 from django.contrib.auth.models import User
 # Create your views here.
 def adminloginview(request):
@@ -56,9 +57,15 @@ def userauthenticate(request):
 @login_required
 def userhomepageview(request):
     username = request.user.username
-    context = {
-        "username": username
 
+    student = Student.objects.get(user = request.user)
+    subjects = []
+    student_subjects = SubjectStudent.objects.filter(student = student)
+    for ss in student_subjects:
+        subjects.append(ss.subject)
+    context = {
+        "username": username,
+        "subjects": subjects
     }
     return render(request, "userhomepage.html", context)
 
@@ -67,5 +74,11 @@ def userlogout(request):
     logout(request)
     return redirect('userlogin')
 
-
-
+def usertasksview(request, subject_id):
+    subject = get_object_or_404(Subject, pk = subject_id)
+    student = Student.objects.get(user=request.user)
+    tasks = Task.objects.filter(subject = subject, student = student)
+    context = {
+        "subject": subject, "tasks": tasks
+    }
+    return render(request, "usertasks.html", context)

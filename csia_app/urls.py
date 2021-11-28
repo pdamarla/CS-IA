@@ -12,5 +12,6 @@ urlpatterns = [
     path('customer/authenticate/', userauthenticate, name = "userauthenticate"),
     path('user/homepage/', userhomepageview, name = 'userhomepage'),
     path('userlogout/', userlogout, name = "userlogout"),
+    path('usertasks/<int:subject_id>', usertasksview, name = "usertasks")
     ]
 

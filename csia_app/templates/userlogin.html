@@ -1,6 +1,8 @@
 {% extends 'base.html' %}
 {% block content %}
-<div class="container" style="width: 400px;height: 250px;background-color: #F4BDC5;margin-top: 200px; padding: 30px">
+{%load static%}
+<div style = "background-color: #82B1D8; background-image: url({% static 'images/background-image.jpg' %}); height: 100vh; padding-top: 200px; " >
+<div class="container" style="width: 400px;height: 250px;background-color: #D2BAC6; padding: 30px">
 
 <h1 style="color: black;text-align: center;">LOGIN</h1>
 <form method="post" action="/customer/authenticate/">
@@ -12,5 +14,6 @@
 {% for message in messages %}
     <p style="text-align: center">{{message}}</p>
 {% endfor %}
+</div>
 </div>
 {% endblock%}

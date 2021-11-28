@@ -1,0 +1,41 @@
+{% extends 'base.html' %}
+{% block content %}
+<nav class="navbar navbar-light bg-light">
+  <div class="container-fluid">
+    <a class="navbar-brand">{{subject.name}}</a>
+    <a class="btn btn-danger" href="/userlogout/">logout</a>
+  </div>
+</nav>
+<div style = "background-color: #82B1D8;height: 100vh; padding-top: 200px; " >
+    <div class = "container">
+         <table class="table">
+          <thead>
+            <tr>
+              <th scope="col">Task Name</th>
+              <th scope="col">Status</th>
+              <th scope="col">Deadline</th>
+            </tr>
+          </thead>
+          <tbody>
+              {% for task in tasks %}
+               <tr>
+                  <th scope="row">{{task.name}}</th>
+                  <td>{{task.status}}</td>
+                  <td>{{task.deadline}}</td>
+                </tr>
+                {% endfor %}
+
+
+          </tbody>
+        </table>
+
+    </div>
+</div>
+
+
+
+
+
+
+
+{% endblock%}

@@ -1,6 +1,7 @@
 {% extends 'base.html' %}
 {% block content %}
-<div style="padding:70px; background-color: #DBF6EE">
+{% load static %}
+<div style="padding:70px; background-color: #DBF6EE; background-image: url({% static 'admin/img/background-for-admin-login.jpg' %})">
 <div style="padding: 30px;width: 30%; background-color: #EE6767;display: block;margin: auto;margin-top:100px">
     <h1 style="color: white;text-align: center">ADMIN LOGIN</h1>
  <form method ="post" action="/adminauthenticate/">
