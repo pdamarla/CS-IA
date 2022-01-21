@@ -23,9 +23,11 @@ def authenticateadmin(request):
         messages.add_message(request, messages.ERROR, "Invalid Username/Password")
         return redirect('adminloginpage')
 
-
+@login_required
 def adminhomepageview(request):
-    return render(request,"adminhomepage.html")
+    subjects=Subject.objects.all()
+    context={"subjects":subjects}
+    return render(request,"adminhomepage.html",context)
 
 
 def logoutadmin(request):
@@ -94,3 +96,32 @@ def savetask(request, task_id):
     task.save()
     return redirect('userhomepage')
 
+@login_required
+def createtask(request):
+    if request.method == "POST":
+        subject_id=request.POST["subject"]
+        subject=get_object_or_404(Subject,pk =subject_id)
+        subject_students=SubjectStudent.objects.filter(subject=subject)
+        for ss in subject_students:
+            task=Task()
+            task.name=request.POST["name"]
+            task.description=request.POST["description"]
+            task.deadline=request.POST["deadline"]
+            taskstatus=TaskStatus()
+            taskstatus.status="Pending"
+            taskstatus.save()
+            task.status=taskstatus
+            task.student=ss.student
+            task.subject=subject
+            task.file=None
+            task.grade=0
+            task.save()
+    return redirect("adminhomepage")
+
+def admintasksview(request, subject_id):
+    subject = get_object_or_404(Subject, pk=subject_id)
+    tasks = Task.objects.filter(subject=subject)
+    context = {
+        "subject": subject, "tasks": tasks
+    }
+    return render(request, "admintasks.html", context)

@@ -6,6 +6,47 @@
       <div style="background-color:#D5B1D8">
           <a class="navbar-brand" style = " margin-left: 300px; padding-right: 300px;">{{subject.name}}</a>
       </div>
+    <!-- Button trigger modal -->
+    <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#admintaskmodal">
+      Create New Task
+    </button>
+
+    <!-- Modal -->
+    <div class="modal fade" id="admintaskmodal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+      <div class="modal-dialog">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title" id="adminmodaltitle">Modal title</h5>
+            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+          </div>
+          <div class="modal-body">
+            <form method="post" action="{% url 'createtask' %}">
+                    {% csrf_token %}
+                <h3>
+                    Create a new task
+                </h3>
+              <div class="mb-3">
+                <label for="admintaskname" class="form-label">Name</label>
+                <input type="text" class="form-control" id="admintaskname" aria-describedby="emailHelp" name="name">
+              </div>
+                <div>
+                <input type="hidden" class="form-control" id="adminsubject" aria-describedby="emailHelp" name="subject" value="{{subject.id}}">
+              </div>
+                <div class="mb-3">
+                <label for="admindescription" class="form-label">Description</label>
+                <input type="text" class="form-control" id="admindescription" aria-describedby="emailHelp" name="description">
+              </div>
+                <div class="mb-3">
+                <label for="admindeadline" class="form-label">Deadline</label>
+                <input type="date" class="form-control" id="admindeadline" aria-describedby="emailHelp" name="deadline">
+              </div>
+              <button type="submit" class="btn btn-primary">Submit</button>
+            </form>
+
+          </div>
+        </div>
+      </div>
+    </div>
     <a class="btn btn-danger" href="/userlogout/">logout</a>
   </div>
 </nav>
@@ -19,6 +60,7 @@
          <table class="table">
           <thead>
             <tr>
+              <th scope="col">Student Name</th>
               <th scope="col">Task Name</th>
               <th scope="col">Status</th>
               <th scope="col">Deadline</th>
@@ -29,10 +71,9 @@
               {% for task in tasks %}
                <tr>
                   <th scope="row">
-                      <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#taskModal{{task.id}}">
-      {{task.name}}
-    </button></th>
-
+      {{task.student.name}}
+    </th>
+                   <td>{{task.name}}</td>
                   <td>{{task.status}}</td>
                   <td>{{task.deadline}}</td>
                   <td>{{task.grade}}</td>

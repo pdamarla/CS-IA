@@ -1,8 +1,17 @@
 {% extends 'base.html' %}
 {% block content %}
 {%load static%}
-<div style = "background-color: #82B1D8; background-image: url({% static 'images/background-image.jpg' %}); height: 100vh; padding-top: 200px; " >
-<div class="container" style="width: 400px;height: 250px;background-color: #D2BAC6; padding: 30px">
+<nav class="navbar navbar-light bg-light">
+  <div class="container-fluid">
+      <font size="200px"><a class="navbar-brand" style="margin-left: 550px; margin-top: 100px;">MANAGE YOUR TASKS</a></font>
+    <!--<form class="d-flex">
+      <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search">
+      <button class="btn btn-outline-success" type="submit">Search</button>
+    </form> -->
+  </div>
+</nav>
+<div style = "background-image: url({% static 'images/background-image-2.jpg' %}); height: 100vh; padding-top: 100px; " >
+<div class="container" style="width: 400px;height: 250px;background-color: #94A3AB; padding: 30px">
 
 <h1 style="color: black;text-align: center;">LOGIN</h1>
 <form method="post" action="/customer/authenticate/">

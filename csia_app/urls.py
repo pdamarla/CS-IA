@@ -15,6 +15,8 @@ urlpatterns = [
     path('user/homepage/', userhomepageview, name = 'userhomepage'),
     path('userlogout/', userlogout, name = "userlogout"),
     path('usertasks/<int:subject_id>', usertasksview, name = "usertasks"),
-    path('savetasks/<int:task_id>', savetask)
+    path('savetasks/<int:task_id>', savetask),
+    path('createtask/',createtask, name= "createtask"),
+    path('admintasks/<int:subject_id>', admintasksview, name = "admintasks"),
     ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
 
