@@ -125,3 +125,34 @@ def admintasksview(request, subject_id):
         "subject": subject, "tasks": tasks
     }
     return render(request, "admintasks.html", context)
+
+def updategrade(request):
+    task_id = request.POST["task_id"]
+    task = get_object_or_404(Task, pk=task_id)
+    grade = int(request.POST["grade"])
+    task.grade = grade
+    task.save()
+    return redirect("adminhomepage")
+
+@login_required
+def updatetask(request):
+    task_id = request.POST["task_id"]
+    task = get_object_or_404(Task, pk=task_id)
+    grade = int(request.POST["grade"])
+    name = request.POST["name"]
+    description = request.POST["description"]
+    deadline = request.POST["deadline"]
+    task.name = name
+    task.description = description
+    task.deadline = deadline
+    task.grade = grade
+    task.save()
+    return redirect("adminhomepage")
+
+@login_required
+def deletetask(request, task_id):
+    task = get_object_or_404(Task, pk=task_id)
+    task.delete()
+    return redirect("adminhomepage")
+
+

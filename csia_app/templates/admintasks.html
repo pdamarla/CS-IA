@@ -16,7 +16,6 @@
       <div class="modal-dialog">
         <div class="modal-content">
           <div class="modal-header">
-            <h5 class="modal-title" id="adminmodaltitle">Modal title</h5>
             <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
           </div>
           <div class="modal-body">
@@ -70,18 +69,40 @@
           <tbody>
               {% for task in tasks %}
                <tr>
+
+
                   <th scope="row">
       {{task.student.name}}
     </th>
                    <td>{{task.name}}</td>
                   <td>{{task.status}}</td>
                   <td>{{task.deadline}}</td>
-                  <td>{{task.grade}}</td>
+                       <td>
+                   <select name="grade" id="select-{{task.id}}">
+                       <option value="1" > 1 </option>
+                       <option value="2"> 2 </option>
+                       <option value="3"> 3 </option>
+                       <option value="4" selected> 4 </option>
+                       <option value="5"> 5 </option>
+                      </select>
+                       </td>
                   <td> <a class = "btn btn-success" href="/media/{{task.file}}" target="_blank">
                       View File
                   </a>
                   </td>
+                  <td>
+                     <form id="form-delete-{{task.id}}" action="{%url 'deletetask' task.id %}" method="post">
+                         {%csrf_token%}
+                         <input type="hidden" value="{{task.name}}" name="name">
+                         <input type="hidden" value="{{task.description}}" name="description">
+                         <input type="hidden" value="{{task.subject.id}}" name="subject_id">
+                         <button type="submit" class="btn btn-danger"> Delete </button>
 
+                     </form>
+                  </td>
+                   <td>
+
+                   </td>
                 </tr>
 
 

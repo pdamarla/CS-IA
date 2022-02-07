@@ -18,5 +18,8 @@ urlpatterns = [
     path('savetasks/<int:task_id>', savetask),
     path('createtask/',createtask, name= "createtask"),
     path('admintasks/<int:subject_id>', admintasksview, name = "admintasks"),
+    path('updategrade/',updategrade,name= "updategrade"),
+    path('updatetask/',updatetask, name="updatetask"),
+    path('deletetask/<int:task_id>', deletetask, name= "deletetask")
     ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
 
